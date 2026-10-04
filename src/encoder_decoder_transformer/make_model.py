@@ -19,7 +19,8 @@ def make_model(
     src_vocab_size: int,
     tgt_vocab_size: int,
     max_context: int = 1024,
-    N: int = 6,
+    N_encoder: int = 6,
+    N_decoder: int = 6,
     d_model: int = 512,
     d_ff: int = 2048,
     h: int = 8,
@@ -31,7 +32,8 @@ def make_model(
         src_vocab_size: Size of the source vocabulary.
         tgt_vocab_size: Size of the target vocabulary.
         max_context: Maximum sequence length for the RoPE tables.
-        N: Number of encoder and decoder layers.
+        N_encoder: Number of encoder layers.
+        N_decoder: Number of encoder layers.
         d_model: Feature dimension of the model.
         d_ff: Hidden dimension of the feed-forward network.
         h: Number of attention heads.
@@ -44,8 +46,8 @@ def make_model(
     cross_attn = copy.deepcopy(attn)
     ff = FeedForward(d_model, d_ff, dropout)
     model = EncoderDecoder(
-        Encoder(EncoderLayer(d_model, attn, ff, dropout), N, d_model),
-        Decoder(DecoderLayer(d_model, attn, cross_attn, ff, dropout), N, d_model),
+        Encoder(EncoderLayer(d_model, attn, ff, dropout), N_encoder, d_model),
+        Decoder(DecoderLayer(d_model, attn, cross_attn, ff, dropout), N_decoder, d_model),
         Generator(d_model, tgt_vocab_size),
         Embeddings(d_model, src_vocab_size),
         Embeddings(d_model, tgt_vocab_size),
