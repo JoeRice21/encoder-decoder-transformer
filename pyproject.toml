@@ -1,6 +1,6 @@
 [project]
 name = "encoder-decoder-transformer"
-version = "0.1.0"
+version = "0.1.1"
 description = "A from-scratch PyTorch implementation of the Transformer encoder-decoder architecture."
 readme = "README.md"
 license = "MIT"
@@ -18,7 +18,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-    "torch>=2.14.1",
+    "torch>=2.11",
 ]
 
 [build-system]
